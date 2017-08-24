@@ -4,4 +4,4 @@ npm-debug.*
 node_modules
 coverage
 .vscode
-logs/*
+logs/*.log
