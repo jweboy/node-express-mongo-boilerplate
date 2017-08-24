@@ -12,6 +12,7 @@ node_js:
 cache:
     directories:
         - node_modules
+dist:
+    precise
 script:
-    - "npm install"
     - "npm run lint"
