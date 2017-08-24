@@ -7,10 +7,17 @@ var bodyParser = require('body-parser')
 const session = require('express-session')
 const expressWinston = require('express-winston')
 const winston = require('winston')
+const flash = require('connect-flash')
 // const index = require('./routes/index')
-const { session: { secret, maxAge }, port, name } = require('config-lite')(__dirname)
+const {
+    session: { secret, maxAge },
+    locals: { title },
+    name
+} = require('config-lite')(__dirname)
+
 const users = require('./routes/users')
 const login = require('./routes/login')
+const home = require('./routes/home')
 
 const app = module.exports = express()
 
@@ -27,7 +34,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-
 //* session middleware
 app.use(session({
   name, //* 设置cookie来保存session id的字段名
@@ -39,6 +45,35 @@ app.use(session({
   }
 }))
 
+//* flash middleware
+app.use(flash())
+
+//* global variables
+app.use(function (req, res, next) {
+  const success = req.flash('success')
+  const error = req.flash('error')
+
+  console.log(success, error)
+
+ //* success handler
+  if (success.length > 0) {
+    res.locals.success = success.toString()
+  } else {
+    res.locals.success = null
+  }
+ //* error handler
+  if (error.length > 0) {
+    res.locals.error = error.toString()
+    // res.status(error.status || 500)
+  } else {
+    res.locals.error = null
+  }
+
+  res.locals.title = title
+
+  next()
+})
+
 //* success logger middleware
 app.use(expressWinston.logger({
   transports: [
@@ -48,12 +83,18 @@ app.use(expressWinston.logger({
   ]
 }))
 
-app.use('/', function (req, res) {
-  res.render('login')
-})
-
 app.use('/users', users)
 app.use('/login', login)
+app.use('/home', home)
+
+//* 404 page
+app.use(function (req, res) {
+  if (!res.headerSent) res.render('404')
+})
+
+app.get('/', function (req, res) {
+  res.redirect('/login')
+})
 
 //* error logger middleware
 app.use(expressWinston.errorLogger({
@@ -65,25 +106,27 @@ app.use(expressWinston.errorLogger({
 }))
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('Not Found')
-  err.status = 404
-  next(err)
-})
+// app.use(function (req, res, next) {
+//   var err = new Error('Not Found')
+//   err.status = 404
+//   next(err)
+// })
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+// status handler
+// app.use(function (req, res, next) {
+//   console.log("app.usr local");
+//   const success = req.flash('success')
+//   res.locals.success = 'success.length > 0 ? success : null'
+//   // set locals, only providing error in development
+//   // res.locals.message = err.message
+//   // res.locals.error = req.app.get('env') === 'development' ? err : {}
+//   // // render the error page
+//   // res.status(err.status || 500)
+//   // res.render('error')
+//
+//   next()
+// })
 
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
-})
-
-if (module.parent) {
-  app.listen(port, function () {
-    console.log(`${name} -> App listening on port ${port}!`)
-  })
-}
+// if (module.parent) {
+//   app.listen(port)
+// }

@@ -1,4 +1,15 @@
 <div>
-  主页
-  <a href="/signin">登陆</a>
+    <h2><%= title %></h2>
+  主页, Welcome,
+  <p><%= success %></p>
+  <p>
+    <span>用户名：</span>
+    <span><%= name %></span>
+  </p>
+  <p>
+    <span>密码：</span>
+    <span><%= pwd %></span>
+  </p>
+  <a href="/login">登陆</a>
+  <%- include main %>
 </div>
