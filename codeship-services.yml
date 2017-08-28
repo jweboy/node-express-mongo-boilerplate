@@ -1,5 +1,8 @@
-app:
-  build:
-    image: codeship/app
-    args: 
-      build_env: production
+version: '2'
+
+services:
+  codeship_example:
+  build: .
+    environment:
+      EXAMPLE_ENV_VAR: example-var
+
