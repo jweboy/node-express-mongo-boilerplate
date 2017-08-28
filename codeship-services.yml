@@ -1,0 +1,5 @@
+app:
+  build:
+    image: codeship/app
+    args: 
+      build_env: production

@@ -2,7 +2,7 @@ var express = require('express')
 var path = require('path')
 // var favicon = require('serve-favicon')
 var logger = require('morgan')
-var cookieParser = require('cookie-parser')
+// var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 const session = require('express-session')
 const expressWinston = require('express-winston')
@@ -11,8 +11,8 @@ const flash = require('connect-flash')
 // const index = require('./routes/index')
 const {
     session: { secret, maxAge },
-    locals: { title },
-    name
+  locals: { title },
+  name
 } = require('config-lite')(__dirname)
 
 const users = require('./routes/users')
@@ -31,7 +31,7 @@ app.set('view engine', 'ejs')
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //* session middleware
@@ -55,13 +55,13 @@ app.use(function (req, res, next) {
 
   console.log(success, error)
 
- //* success handler
+  //* success handler
   if (success.length > 0) {
     res.locals.success = success.toString()
   } else {
     res.locals.success = null
   }
- //* error handler
+  //* error handler
   if (error.length > 0) {
     res.locals.error = error.toString()
     // res.status(error.status || 500)
