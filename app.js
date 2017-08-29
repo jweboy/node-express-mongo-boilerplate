@@ -2,17 +2,19 @@ var express = require('express')
 var path = require('path')
 // var favicon = require('serve-favicon')
 var logger = require('morgan')
-// var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 const session = require('express-session')
+// const MongoStore = require('connect-mongo')(session)
 const expressWinston = require('express-winston')
 const winston = require('winston')
 const flash = require('connect-flash')
 // const index = require('./routes/index')
 const {
-    session: { secret, maxAge },
+  session: { secret, maxAge },
   locals: { title },
   name
+  // mongodb
 } = require('config-lite')(__dirname)
 
 const users = require('./routes/users')
@@ -31,7 +33,7 @@ app.set('view engine', 'ejs')
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 //* session middleware
@@ -43,6 +45,9 @@ app.use(session({
   cookie: {
     maxAge //* 过期时间
   }
+  // store: new MongoStore({
+  //   url: mongodb
+  // })
 }))
 
 //* flash middleware
