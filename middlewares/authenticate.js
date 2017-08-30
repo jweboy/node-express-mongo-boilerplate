@@ -1,6 +1,7 @@
+// @flow
 const { user } = require('config-lite')(__dirname)
 
-exports.authenticate = function (name, pwd, callback) {
+exports.authenticate = function (name: string, pwd: number, callback: function) {
   if (!module.parent) console.log('authenticating %s:%s', name, pwd)
 
   //* 前期验证 只做空值+默认值 => 校验
