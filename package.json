@@ -7,8 +7,8 @@
     "dev": "nodemon app",
     "pro1": "NODE_ENV=production nodemon app",
     "pro": "NODE_ENV=production pm2 start app.js --node-args='--harmony' --name='myapp'",
-    "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
-    "test1": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
+    "test1": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
+    "test": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
     "debug": "DEBUG=express4examples:* npm start",
     "lint": "standard routes/*.js ./app.js --fix"
   },

@@ -15,4 +15,5 @@ cache:
 dist:
     precise
 script:
-    - "npm run lint"
+    - npm run lint
+    - npm run test
