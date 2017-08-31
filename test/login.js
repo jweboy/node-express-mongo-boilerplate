@@ -5,7 +5,6 @@ const assert = require('assert')
 describe('login', () => {
   describe('POST /login', () => {
     const agent = request.agent(app)
-    console.log(agent)
     it('success', function (done) {
       agent
         .post('/login')
@@ -18,5 +17,13 @@ describe('login', () => {
           done()
         })
     })
+    // it('should return the user', function (done) {
+    //   agent
+    //     .get('/users')
+    //     .end(function (error, res) {
+    //       if (error) return done(error)
+    //       done()
+    //     })
+    // })
   })
 })

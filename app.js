@@ -6,7 +6,7 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 const session = require('express-session')
-// const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo')(session)
 const expressWinston = require('express-winston')
 const winston = require('winston')
 const flash = require('connect-flash')
@@ -14,8 +14,8 @@ const flash = require('connect-flash')
 const {
   session: { secret, maxAge },
   locals: { title },
-  name
-  // mongodb
+  name,
+  mongodb
 } = require('config-lite')(__dirname)
 
 const users = require('./routes/users')
@@ -45,10 +45,10 @@ app.use(session({
   saveUninitialized: false, //* 设置为false,无论用户是否登陆,强制创建一个session
   cookie: {
     maxAge //* 过期时间
-  }
-  // store: new MongoStore({
-  //   url: mongodb
-  // })
+  },
+  store: new MongoStore({
+    url: mongodb
+  })
 }))
 
 //* flash middleware
@@ -94,9 +94,9 @@ app.use('/login', login)
 app.use('/home', home)
 
 //* 404 page
-app.use(function (req, res) {
-  if (!res.headerSent) res.render('404')
-})
+// app.use(function (req, res) {
+//   if (!res.headerSent) res.render('404')
+// })
 
 app.get('/', function (req, res) {
   res.redirect('/login')

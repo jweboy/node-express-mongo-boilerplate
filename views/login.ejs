@@ -1,14 +1,18 @@
-<div>
-    <p><%= error %></p>
-  <form method="post" action="/login">
-    <div class="field required">
-      <label for="">username</label>
-      <input type="text" name="username" placeholder="enter username">
-    </div>
-    <div class="field required">
-      <label>password</label>
-      <input type="password" name="password" placeholder="enter password" />
-    </div>
-    <input type="submit" value="login" />
-  </form>
+<%- include('header') %>
+
+<div class="ui card login__card">
+  <p class="error__status"><%= error %></p>
+  <form class="ui form" method="post" action="/login">
+  <div class="field">
+    <label>用户名</label>
+    <input type="text" name="username" placeholder="enter username">
+  </div>
+  <div class="field">
+    <label>密码</label>
+    <input type="password" name="password" placeholder="enter password" />
+  </div>
+  <button type="submit" class="ui blue inverted button login__btn" role="button">登陆</button>
+</form>
 </div>
+
+<%- include('footer') %>
