@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "set DEBUG=* && node ./bin/www",
     "dev": "NODE_ENV=development nodemon app",
     "pro": "NODE_ENV=production nodemon app",
     "build": "NODE_ENV=production pm2 start app.js --node-args='--harmony' --name='myapp'",
@@ -11,7 +11,7 @@
     "test": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage",
     "debug": "DEBUG=express4examples:* npm start",
     "lint": "standard routes/*.js ./app.js --fix",
-    "flow": "flow-remove-types"
+    "removeFlow": "yarn run flow-remove-types"
   },
   "dependencies": {
     "assert": "^1.4.1",
@@ -36,7 +36,8 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "flow-bin": "^0.53.1",
+    "flow-bin": "^0.54.0",
+    "flow-remove-types": "^1.2.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",

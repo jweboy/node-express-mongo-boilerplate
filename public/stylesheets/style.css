@@ -20,3 +20,6 @@ a {
 .error__status{
   color: #db2828;
 }
+.main{
+  height: 100%;
+}

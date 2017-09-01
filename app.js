@@ -21,6 +21,8 @@ const {
 const users = require('./routes/users')
 const login = require('./routes/login')
 const home = require('./routes/home')
+// const main = require('./routes/main')
+const goods = require('./routes/goods')
 
 const app = module.exports = express()
 
@@ -92,6 +94,7 @@ app.use(expressWinston.logger({
 app.use('/users', users)
 app.use('/login', login)
 app.use('/home', home)
+app.use('/goods', goods)
 
 //* 404 page
 // app.use(function (req, res) {

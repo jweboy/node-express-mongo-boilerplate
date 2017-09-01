@@ -15,7 +15,7 @@ router.post('/', function (req, res) {
         req.session.password = req.body.password
 
         req.flash('success', '登陆成功!')
-        res.redirect('/users')
+        res.redirect('/home')
       })
     } else {
       req.flash('error', error)

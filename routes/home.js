@@ -1,16 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { User } = require('../lib/mongo')
+// const { User } = require('../lib/mongo')
 
 router.get('/', function (req, res) {
-  const { username, password } = req.session
+  // const { username, password } = req.session
 
-  User.insertOne({ username, password }).exec().then(console.log).catch(console.error)
-
-  res.render('home', {
-    name: username,
-    pwd: password
-  })
+  // User.insertOne({ username, password }).exec().then(console.log).catch(console.error)
+  res.render('home')
 })
 
 module.exports = router
