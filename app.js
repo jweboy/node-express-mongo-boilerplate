@@ -15,7 +15,8 @@ const {
   session: { secret, maxAge },
   locals: { title },
   name,
-  mongodb
+  mongodb,
+  port
 } = require('config-lite')(__dirname)
 
 const users = require('./routes/users')
@@ -136,6 +137,7 @@ app.use(expressWinston.errorLogger({
 //   next()
 // })
 
-// if (module.parent) {
-//   app.listen(port)
-// }
+if (module.parent) {
+  console.log(`server is listening on ${port}`)
+  app.listen(port)
+}
