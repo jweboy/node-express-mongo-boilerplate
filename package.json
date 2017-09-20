@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "set DEBUG=* && node ./bin/www",
-    "dev": "NODE_ENV=development nodemon app",
+    "dev": "NODE_ENV=development nodemon ./app.js",
     "pro": "NODE_ENV=production nodemon app",
     "build": "NODE_ENV=production pm2 start app.js --node-args='--harmony' --name='myapp'",
     "test1": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
